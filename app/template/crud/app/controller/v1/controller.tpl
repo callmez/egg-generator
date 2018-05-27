@@ -8,7 +8,7 @@ const Controller = require('egg').Controller;
 /**
  * {{identity}} controller
  */
-class {{identity[0].toUpperCase() + identity.slice(1)}}Controller extends Controller {
+class {{identity | capitalize}}Controller extends Controller {
 
   /**
    * {{identity}} paginate query
@@ -39,4 +39,4 @@ class {{identity[0].toUpperCase() + identity.slice(1)}}Controller extends Contro
   }
 }
 
-module.exports = {{identity}}Controller;
+module.exports = {{identity | capitalize}}Controller;

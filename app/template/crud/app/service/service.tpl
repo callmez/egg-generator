@@ -6,7 +6,7 @@
 
 const Service = require('egg').Service;
 
-class {{identity[0].toUpperCase() + identity.slice(1)}} extends Service {
+class {{identity | capitalize}} extends Service {
 
   /**
    * find {{identity}} by id
@@ -15,7 +15,7 @@ class {{identity[0].toUpperCase() + identity.slice(1)}} extends Service {
    * @return {Promise<Promise<*>}
    */
   async findById(id) {
-    const model = await this.ctx.model.{{identity[0].toUpperCase() + identity.slice(1)}}.findOne({ where: { id } });
+    const model = await this.ctx.model.{{identity | capitalize}}.findOne({ where: { id } });
     if (!model) this.ctx.throw('400', '{{identity}} not found.');
     return model;
   }
@@ -29,7 +29,7 @@ class {{identity[0].toUpperCase() + identity.slice(1)}} extends Service {
   async paginate(data = this.ctx.query) {
     const _data = await this.validatePage('paginate', data);
 
-    return this.ctx.model.{{identity[0].toUpperCase() + identity.slice(1)}}.paginate({
+    return this.ctx.model.{{identity | capitalize}}.paginate({
       where: _data.data,
       ..._data.page,
     });
@@ -43,11 +43,11 @@ class {{identity[0].toUpperCase() + identity.slice(1)}} extends Service {
    */
   async create(data = this.ctx.request.body) {
     const _data = await this.validate('create', data);
-    return this.ctx.model.{{identity[0].toUpperCase() + identity.slice(1)}}.create(_data);
+    return this.ctx.model.{{identity | capitalize}}.create(_data);
   }
 
   /**
-   * crate {{identity}}
+   * update {{identity}} by id
    *
    * @param {string|intger} id
    * @param {Object} data
@@ -60,7 +60,7 @@ class {{identity[0].toUpperCase() + identity.slice(1)}} extends Service {
   }
 
   /**
-   * crate {{identity}}
+   * destory {{identity}} by id
    *
    * @param {string|intger} id
    * @param {Object} data
@@ -72,4 +72,4 @@ class {{identity[0].toUpperCase() + identity.slice(1)}} extends Service {
   }
 }
 
-module.exports = {{identity[0].toUpperCase() + identity.slice(1)}};
+module.exports = {{identity | capitalize}};

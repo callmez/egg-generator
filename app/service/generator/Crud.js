@@ -1,7 +1,6 @@
 'use strict';
 
 const path = require('path');
-const fs = require('fs-extra');
 const AutoSequelize = require('sequelize-auto');
 const Service = require('../../../lib/class/Service');
 const generateSchema = require('../../../lib/util/generateSchema');
@@ -14,24 +13,13 @@ class Crud extends Service {
       identity: { type: 'regexp', pattern: /^[a-zA-Z]{1,20}$/, required: true },
       tableName: { type: 'string', required: true },
     }, data);
+
     data.model = await this.parseModel(data.tableName);
     const directory = path.resolve(`${this.app.config.generator.templateDir}/crud`);
     const result = await this.parse({ directory, data });
 
     if (parseInt(data.create) === 1) await this.write(result);
     return result;
-  }
-
-  async write(data) {
-    for (const template of data.templates) {
-      const file = path.resolve(`${this.app.baseDir}/${template.file}`);
-      const dir = path.dirname(file);
-      const s = await fs.ensureFile(file);
-      // if (file.ensureFile(file)) {
-      //
-      // }
-      file.mkdirs(dir);
-    }
   }
 
   async parseModel(tableName) {

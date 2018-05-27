@@ -8,13 +8,13 @@ module.exports = app => {
   const { model, Sequelize } = app;
   const DataTypes = Sequelize;
 
-  const {{identity[0].toUpperCase() + identity.slice(1)}} = model.define('{{tableName}}', {{model.text|safe}}, {
+  const {{identity | capitalize}} = model.define('{{tableName}}', {{model.text|safe}}, {
     tableName: '{{tableName}}',
   });
 
-  Object.assign({{identity[0].toUpperCase() + identity.slice(1)}}, {
+  Object.assign({{identity | capitalize}}, {
     // Model extend
   });
 
-  return {{identity[0].toUpperCase() + identity.slice(1)}};
+  return {{identity | capitalize}};
 };

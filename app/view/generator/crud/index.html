@@ -94,7 +94,7 @@
         type: 'POST',
         data: data,
         success: function(data) {
-          listTemplate(data.templates);
+          listFile(data.files);
         },
         error: function(error) {
           $info.html(error)
@@ -102,22 +102,25 @@
       });
       return false;
     });
-    function listTemplate(templates) {
+    function listFile(files) {
       var content = '';
       var i = 1;
-      templates.forEach(function(template) {
+      files.forEach(function(file) {
         content += `
   <div class="card">
     <div class="card-header" id="heading${i}">
       <h5 class="mb-0">
         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
-          ${template.file}
+          ${file.file}
+          ${file.alert ? '<small class="text-danger">(提示!)</small>' : ''}
+          ${file.exists ? '<small class="text-secondary">(已存在,不会覆盖)</small>' : ''}
+          ${file.created ? '<small class="text-success">(文件创建成功)</small>' : ''}
         </button>
       </h5>
     </div>
 
-    <div id="collapse${i}" class="collapse" aria-labelledby="heading${i}" data-parent="#accordion">
-      <pre><code>${template.content}</code></pre>
+    <div id="collapse${i}" class="collapse ${file.alert === 1 ? 'show' : ''}" aria-labelledby="heading${i}" data-parent="#accordion">
+      <pre><code>${file.content}</code></pre>
     </div>
   </div>
       `;
