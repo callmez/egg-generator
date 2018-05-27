@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD模板生成器</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style type="text/css">
+        .hljs{display:block;overflow-x:auto;padding:0.5em;background:#23241f}.hljs,.hljs-tag,.hljs-subst{color:#f8f8f2}.hljs-strong,.hljs-emphasis{color:#a8a8a2}.hljs-bullet,.hljs-quote,.hljs-number,.hljs-regexp,.hljs-literal,.hljs-link{color:#ae81ff}.hljs-code,.hljs-title,.hljs-section,.hljs-selector-class{color:#a6e22e}.hljs-strong{font-weight:bold}.hljs-emphasis{font-style:italic}.hljs-keyword,.hljs-selector-tag,.hljs-name,.hljs-attr{color:#f92672}.hljs-symbol,.hljs-attribute{color:#66d9ef}.hljs-params,.hljs-class .hljs-title{color:#f8f8f2}.hljs-string,.hljs-type,.hljs-built_in,.hljs-builtin-name,.hljs-selector-id,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-addition,.hljs-variable,.hljs-template-variable{color:#e6db74}.hljs-comment,.hljs-deletion,.hljs-meta{color:#75715e}
+
+        #crud pre { margin-bottom: 0; }
+        #crud .card-header { padding: 0 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="header" style="margin: 50px 0 10px;">
+                    <h2>CRUD模板生成</h2>
+                </div>
+                <hr />
+                <form id="crud">
+                    <input type="hidden" name="create" value="0">
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-2 col-form-label">名称</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="请输入名称">
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="form-text text-muted">
+                                <small>功能名称, 在CRUD文字展现中体现,
+                                    比如: <code>商品</code> 会体现为文字: <code>创建商品</code>, <code>删除商品</code>, <code>更新商品</code>...
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="identity" class="col-sm-2 col-form-label">标识</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="identity" name="identity" placeholder="请输入标识">
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="form-text text-muted">
+                                <small>
+                                    功能标识, 在CRUD代码中体现.
+                                    比如: <code>goods</code> 会体现为<code>GoodsController</code>, <code>GoodsService</code>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="tableName" class="col-sm-2 col-form-label">数据库表名</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="tableName" name="tableName" placeholder="请输入表名">
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="form-text text-muted">
+                                <small>
+                                    功能操作的数据库表.CRUD将会根据该表元数据生成
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group row">
+                        <div class="col-sm-3 offset-md-2">
+                            <button id="generate" type="submit" class="btn btn-primary">生 成 源 码</button>
+                        </div>
+                    </div>
+                    <div id="info"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script type="text/javascript">
+  jQuery(function() {
+    var $info = $('#info');
+    var $createInput = $("#crud [name=create]");
+    $(document).on('click', '#crud [type=submit]', function(e) {
+        var _this = $(this);
+        $createInput.val(_this.is('#create') ? 1 : 0);
+    });
+    $('#crud').on('submit', function(e) {
+      var _this = $(this);
+      var data = _this.serialize();
+      $.ajax({
+        type: 'POST',
+        data: data,
+        success: function(data) {
+          listTemplate(data.templates);
+        },
+        error: function(error) {
+          $info.html(error)
+        }
+      });
+      return false;
+    });
+    function listTemplate(templates) {
+      var content = '';
+      var i = 1;
+      templates.forEach(function(template) {
+        content += `
+  <div class="card">
+    <div class="card-header" id="heading${i}">
+      <h5 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
+          ${template.file}
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapse${i}" class="collapse" aria-labelledby="heading${i}" data-parent="#accordion">
+      <pre><code>${template.content}</code></pre>
+    </div>
+  </div>
+      `;
+        i++;
+      });
+      content = `
+<div class="accordion" id="accordion">
+${content}
+</div>
+<hr />
+<div class="form-group row">
+    <div class="col-sm-3 offset-md-2">
+        <button id="create" type="submit" class="btn btn-success">创 建 文 件</button>
+    </div>
+</div>
+    `;
+      $info.html(content);
+      $('pre code').each(function(i, code) {
+        var $code = $(code);
+        if ($code.data('init')) return;
+        hljs.highlightBlock(code);
+        $code.data('init', true);
+      });
+    }
+  });
+</script>
+</body>
+</html>

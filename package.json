@@ -1,25 +1,32 @@
 {
-  "name": "egg-crud-generate",
+  "name": "egg-generator",
   "version": "1.0.0",
-  "description": "the CRUD template generate plugin for egg",
+  "description": "the CRUD template generator plugin for egg",
   "main": "index.js",
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/callmez/egg-crud-generate.git"
+    "url": "git+https://github.com/callmez/egg-generator.git"
   },
   "keywords": [
     "egg",
     "crud",
-    "generate",
+    "generator",
     "plugin"
   ],
   "author": "callme-z@qq.com",
   "bugs": {
-    "url": "https://github.com/callmez/egg-crud-generate/issues"
+    "url": "https://github.com/callmez/egg-generator/issues"
   },
-  "homepage": "https://github.com/callmez/egg-crud-generate#readme",
+  "homepage": "https://github.com/callmez/egg-generator#readme",
+  "dependencies": {
+    "async-validator": "^1.8.2",
+    "lodash": "^4.17.10",
+    "globby": "^8.0.1",
+    "comment-parser": "^0.5.0",
+    "fs-extra": "^6.0.1"
+  },
   "eggPlugin": {
-    "name": "crudGenerate"
+    "name": "generator"
   }
 }
