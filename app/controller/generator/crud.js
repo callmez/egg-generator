@@ -1,10 +1,13 @@
 'use strict';
 
+const path = require('path');
 const Controller = require('egg').Controller;
+const render = require('../../../lib/util/render')
 
 class CrudController extends Controller {
   async index() {
-    await this.ctx.render('/generator/crud/index');
+    const view = path.resolve(`${this.app.config.generator.config.viewDir}/generator/crud/index`)
+    this.ctx.body = render(view);
   }
 
   async create() {
