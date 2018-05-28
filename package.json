@@ -1,6 +1,6 @@
 {
   "name": "egg-generator",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "the CRUD generator plugin for egg",
   "main": "index.js",
   "scripts": {},
