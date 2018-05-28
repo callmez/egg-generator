@@ -70,17 +70,19 @@ export default class extends React.PureComponent {
 
     return (
       <Form onSubmit={this.handleSubmit.bind(this)}>
+      {% for name, field in model.fields %}
         <FormItem
           {...formItemLayout}
-          label="组织名">
-          {getFieldDecorator('name', {
+          label="<%= name %>">
+          {getFieldDecorator('<%= name %>', {
             rules: [{
-
+              // required: true, message: '请输入<%= name %>',
             }, {
-              required: true, message: '请输入组织名称',
+
             }],
           })(<Input />)}
         </FormItem>
+      {% endfor %}
       </Form>
     );
   }
