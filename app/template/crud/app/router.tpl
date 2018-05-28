@@ -14,7 +14,7 @@ module.exports = app => {
 
   /******************  拷贝以下内容  ******************/
 
-  router.resources('/api/v1/{{identity | pluralize}}', controller.api.v1.{{identity}});
+  router.resources('/api/v1/<%=identity | pluralize%>', controller.api.v1.<%=identity%>);
 
   /******************  拷贝完毕  ******************/
 

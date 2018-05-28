@@ -9,12 +9,12 @@ const menuData = [
   /******************  拷贝以下内容  ******************/
 
   {
-    name: '{{name}}',
+    name: '<%=name%>',
     icon: 'table',
-    path: '{{identity}}',
+    path: '<%=identity%>',
     children: [
       {
-        name: '{{name}}管理',
+        name: '<%=name%>管理',
         path: 'list',
       },
     ],

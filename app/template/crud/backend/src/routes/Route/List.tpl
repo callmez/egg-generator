@@ -1,6 +1,6 @@
 /**
  * template config
- * @param directory backend/src/routes/{{identity | capitalize}}
+ * @param directory backend/src/routes/<%=identity | capitalize%>
  */
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
