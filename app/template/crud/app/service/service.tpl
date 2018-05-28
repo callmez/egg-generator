@@ -5,6 +5,7 @@
 'use strict';
 
 const Service = require('egg').Service;
+const page = require('../util/page');
 
 class {{identity | capitalize}} extends Service {
 
@@ -31,7 +32,7 @@ class {{identity | capitalize}} extends Service {
 
     return this.ctx.model.{{identity | capitalize}}.paginate({
       where: _data.data,
-      ..._data.page,
+      ...page(data),
     });
   }
 

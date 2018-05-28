@@ -61,12 +61,25 @@ exports.generator = {
 ```js
 // 编辑config.default.js 加入数据库操作源
 exports.sequelize = {
-  dialect: 'mysql', // support: mysql, mariadb, postgres, mssql
-  database: 'test',
-  host: 'localhost',
-  port: '3306',
-  username: 'root',
-  password: '',
+  
+  // single database
+  client: {
+    dialect: 'mysql',// support: mysql, mariadb, postgres, mssql
+    database: 'test',
+    host: 'localhost',
+    port: '3306',
+    username: 'root',
+    password: '',
+    hooks: {
+      afterDefine(Model) {
+        // add paginate method
+        require('sequelize-pagination')({
+          oneBaseIndex: true,
+          pageSize: 20,
+        })(Model);
+      },
+    },
+  },
 };
 ```
 
