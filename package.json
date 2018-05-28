@@ -1,7 +1,7 @@
 {
   "name": "egg-generator",
-  "version": "1.0.0",
-  "description": "the CRUD template generator plugin for egg",
+  "version": "0.0.1",
+  "description": "the CRUD generator plugin for egg",
   "main": "index.js",
   "scripts": {},
   "repository": {
