@@ -7,7 +7,7 @@ const generateSchema = require('../../../lib/util/generateSchema');
 
 class Crud extends Service {
 
-  async create(data = this.ctx.req.body || {}) {
+  async create(data = this.ctx.request.body || {}) {
     await this.validate({
       name: { type: 'string', required: true },
       identity: { type: 'regexp', pattern: /^[a-zA-Z]{1,20}$/, required: true },
@@ -23,11 +23,11 @@ class Crud extends Service {
   }
 
   async parseModel(tableName) {
-    const queryInterface = this.app.sequelize.getQueryInterface(); // 只支持单数据库
+    const queryInterface = this.app.model.getQueryInterface(); // 只支持单数据库
     const tables = await queryInterface.showAllTables();
-    if (tables.indexOf(tableName) <= 0) this.ctx.throw('400', `table ${tableName} is not exists`);
+    if (tables.indexOf(tableName) === -1) this.ctx.throw('400', `table ${tableName} is not exists`);
 
-    const { database, username, password } = this.app.sequelize.config;
+    const { database, username, password } = this.app.model.config;
     const auto = new AutoSequelize(database, username, password, {
       tables: [ tableName ],
       directory: false,

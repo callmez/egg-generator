@@ -1,7 +1,5 @@
 'use strict';
 
-const path = require('path');
-
 module.exports = app => {
   const { router, loader, config } = app;
 

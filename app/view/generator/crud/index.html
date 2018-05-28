@@ -22,6 +22,7 @@
                 </div>
                 <hr />
                 <form id="crud">
+                    <input type="hidden" name="_csrf" value="{{ctx.csrf}}">
                     <input type="hidden" name="create" value="0">
                     <div class="form-group row">
                         <label for="name" class="col-sm-2 col-form-label">名称</label>
@@ -112,7 +113,7 @@
       <h5 class="mb-0">
         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
           ${file.file}
-          ${file.alert ? '<small class="text-danger">(提示!)</small>' : ''}
+          ${file.alert ? '<small class="text-danger">(代码拷贝)</small>' : ''}
           ${file.exists ? '<small class="text-secondary">(已存在,不会覆盖)</small>' : ''}
           ${file.created ? '<small class="text-success">(文件创建成功)</small>' : ''}
         </button>

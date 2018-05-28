@@ -25,7 +25,8 @@
     "globby": "^8.0.1",
     "comment-parser": "^0.5.0",
     "fs-extra": "^6.0.1",
-    "sequelize-auto": "^0.4.29"
+    "sequelize-auto": "^0.4.29",
+    "mysql": "^2.15.0"
   },
   "eggPlugin": {
     "name": "generator"

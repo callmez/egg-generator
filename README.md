@@ -36,7 +36,7 @@ $ pro new // 生成后台 需注意pro会重新建目录, 在输入directory时 
 ### 第三部: 引入依赖
 ```bash
 $ cd .. // 进入项目根目录
-$ npm i egg-sequelize egg-async-validator // 引入数据库操作类和数据验证类
+$ npm i egg-isequelize egg-async-validator // 引入数据库操作类和数据验证类
 $ npm i mysql2 // 如果是msyql数据库需引入mysql2, 其他数据库请查看Sequelize文档
 ```
 
@@ -44,7 +44,7 @@ $ npm i mysql2 // 如果是msyql数据库需引入mysql2, 其他数据库请查�
 // 编辑 plugin.js, 加入以下代码
 exports.sequelize = {
   enable: true,
-  package: 'egg-sequelize'
+  package: 'egg-isequelize'
 }
 
 exports.validate = {

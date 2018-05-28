@@ -6,8 +6,10 @@ const render = require('../../../lib/util/render')
 
 class CrudController extends Controller {
   async index() {
-    const view = path.resolve(`${this.app.config.generator.config.viewDir}/generator/crud/index`)
-    this.ctx.body = render(view);
+    const view = path.resolve(`${this.app.config.generator.viewDir}/generator/crud/index.html`);
+    this.ctx.body = render(view, {
+      ctx: this.ctx,
+    });
   }
 
   async create() {
