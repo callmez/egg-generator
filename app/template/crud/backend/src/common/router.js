@@ -12,7 +12,7 @@ export const getRouterData = app => {
     /******************  拷贝以下内容  ******************/
 
     '/user/list': {
-      component: dynamicWrapper(app, ['<%=identity%>'], () => import('../routes/<%=identity | capitalize%>/List')),
+      component: dynamicWrapper(app, ['<%= identity %>'], () => import('../routes/<%= identity | capitalize %>/List')),
     },
 
   /******************  拷贝完毕  ******************/

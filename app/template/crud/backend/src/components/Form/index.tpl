@@ -1,6 +1,6 @@
 /**
  * template config
- * @param directory backend/src/components/<%=identity | capitalize%>Form
+ * @param directory backend/src/components/<%= identity | capitalize %>Form
  */
 import React from 'react';
 import { connect } from 'dva';
@@ -27,7 +27,7 @@ export default class extends React.PureComponent {
       this.props.form.validateFields({ force: true }, (err, values) => {
         if (err) return;
         this.props.dispatch({
-          type: `<%=identity%>/${values.id ? 'update' : 'add'}`,
+          type: `<%= identity %>/${values.id ? 'update' : 'add'}`,
           payload: values,
         }).then(() => {
           message.success('提交成功!');
