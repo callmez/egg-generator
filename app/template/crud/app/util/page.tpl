@@ -9,12 +9,12 @@ module.exports = function (query) {
 
   const page = parseInt(query.page, 10);
   if (page > 0) {
-    result.pageIndex = data.page;
+    result.pageIndex = page;
   }
 
   const pageSize = parseInt(query.page_size, 10);
   if (pageSize > 0) {
-    result.pageSize = pageSize;
+    result.pageSize = pageSize > 200 ? 200 : pageSize; // 最大每页显示数
   }
 
   return result;

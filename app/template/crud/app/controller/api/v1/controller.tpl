@@ -28,14 +28,14 @@ class {{identity | capitalize}}Controller extends Controller {
    * update {{identity}} by id
    */
   async update() {
-    this.ctx.body = await this.ctx.service.{{identity}}.update();
+    this.ctx.body = await this.ctx.service.{{identity}}.update(this.ctx.params.id);
   }
 
   /**
-   * destory {{identity}} by id
+   * destroy {{identity}} by id
    */
-  async destory() {
-    this.ctx.body = await this.ctx.service.{{identity}}.destory();
+  async destroy() {
+    this.ctx.body = await this.ctx.service.{{identity}}.destroy(this.ctx.params.id);
   }
 }
 

@@ -28,10 +28,12 @@ class {{identity | capitalize}} extends Service {
    * @return {Promise<Promise<*>}
    */
   async paginate(data = this.ctx.query) {
-    const _data = await this.validatePage('paginate', data);
+    const _data = await this.ctx.validate({
+      // add validate rules!!!!!!!!
+    }, data);
 
     return this.ctx.model.{{identity | capitalize}}.paginate({
-      where: _data.data,
+      where: _data,
       ...page(data),
     });
   }
@@ -43,7 +45,9 @@ class {{identity | capitalize}} extends Service {
    * @return {Promise<_data>}
    */
   async create(data = this.ctx.request.body) {
-    const _data = await this.validate('create', data);
+    const _data = await this.ctx.validate({
+      // add validate rules!!!!!!!!
+    }, data);
     return this.ctx.model.{{identity | capitalize}}.create(_data);
   }
 
@@ -54,22 +58,24 @@ class {{identity | capitalize}} extends Service {
    * @param {Object} data
    * @return {Promise<>}
    */
-  async update(id = this.ctx.query.id, data = this.ctx.request.body) {
-    const model = this.findById(id);
-    const _data = await this.validate('create', data);
+  async update(id, data = this.ctx.request.body) {
+    const model = await this.findById(id);
+    const _data = await this.ctx.validate({
+      // add validate rules!!!!!!!!
+    }, data);
     return model.update(_data);
   }
 
   /**
-   * destory {{identity}} by id
+   * destroy {{identity}} by id
    *
    * @param {string|intger} id
    * @param {Object} data
    * @return {Promise<*>}
    */
-  async destory(id = this.ctx.query.id) {
-    const model = this.findById(id);
-    return model.destory();
+  async destroy(id) {
+    const model = await this.findById(id);
+    return model.destroy();
   }
 }
 

@@ -1,8 +1,10 @@
 # egg-generator
 
+![image](https://user-images.githubusercontent.com/1625891/40605509-32e592dc-6295-11e8-809f-21fb8d9cb103.png)
+
 基于eggjs框架搭建的代码生成器, 目前支持CRUD生成, 生成内容包括
 - 服务端代码: eggjs restful 代码骨架文件
-`app/controller/{name}.js`
+`app/controller/api/v1/{name}.js`
 `app/model/{name}.js`
 `app/service/{name}.js`
 `app/router.js` // 路由注册代码
@@ -36,7 +38,7 @@ $ pro new // 生成后台 需注意pro会重新建目录, 在输入directory时 
 ### 第三部: 引入依赖
 ```bash
 $ cd .. // 进入项目根目录
-$ npm i egg-isequelize egg-async-validator // 引入数据库操作类和数据验证类
+$ npm i egg-isequelize egg-async-ivalidator // 引入数据库操作类和数据验证类
 $ npm i mysql2 // 如果是msyql数据库需引入mysql2, 其他数据库请查看Sequelize文档
 ```
 
@@ -49,7 +51,7 @@ exports.sequelize = {
 
 exports.validate = {
   enable: true,
-  package: 'egg-async-validator',
+  package: 'egg-async-ivalidator',
 };
 
 exports.generator = {
@@ -88,4 +90,4 @@ exports.sequelize = {
 $ cd project && npm run dev // 项目根目录启动服务
 $ cd backend && npm start // 启动管理后台
 ```
-访问 []()
+访问 [http://127.0.0.1:7001/generator/crud](http://127.0.0.1:7001/generator/crud) 开始创建

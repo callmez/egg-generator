@@ -9,12 +9,12 @@
 
 // router.js
 module.exports = app => {
-const { router, controller } = app;
+  const { router, controller } = app;
   router.get('/', controller.home.index);
 
   /******************  拷贝以下内容  ******************/
 
-  router.resources('/{{identity}}', controller.{{identity}});
+  router.resources('/api/v1/{{identity | pluralize}}', controller.api.v1.{{identity}});
 
   /******************  拷贝完毕  ******************/
 
