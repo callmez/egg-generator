@@ -29,8 +29,7 @@ $ npm i // 安装依赖
 > 注意: 后台目录名必须为`backend`, 且必须在项目根目录下. 例如: `project/backend`
 ```bash
 $ npm i ant-design-pro-cli -g // 安装ant design pro官方生成器
-$ mkdir backend && cd backend // 在项目中创建后台目录
-$ pro new // 生成后台 需注意pro会重新建目录, 在输入directory时 输入: ../backend即可
+$ pro new // 生成后台, project name输入为: `backend`
 ```
 
 > 注意:以上两部为项目初始搭建, 如果已有的项目中集成可以跳过以上两步. 独立后台项目可以软连接为`backend`既可. 前提必须按照`eggjs`和`ant design pro`标准目录结构.
