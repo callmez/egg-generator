@@ -11,7 +11,7 @@ export const getRouterData = app => {
 
     /******************  拷贝以下内容  ******************/
 
-    '/user/list': {
+    '/<%= identity %>/list': {
       component: dynamicWrapper(app, ['<%= identity %>'], () => import('../routes/<%= identity | capitalize %>/List')),
     },
 
