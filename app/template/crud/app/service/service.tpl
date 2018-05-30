@@ -60,7 +60,7 @@ class <%= identity | capitalize %> extends Service {
    * @param {Object} data
    * @return {Promise<>}
    */
-  async update(id, data = this.ctx.request.body) {
+  async update(id = this.ctx.params.id, data = this.ctx.request.body) {
     const model = await this.findById(id);
     const _data = await this.ctx.validate({
 
@@ -77,7 +77,7 @@ class <%= identity | capitalize %> extends Service {
    * @param {Object} data
    * @return {Promise<*>}
    */
-  async destroy(id) {
+  async destroy(id = this.ctx.params.id) {
     const model = await this.findById(id);
     return model.destroy();
   }

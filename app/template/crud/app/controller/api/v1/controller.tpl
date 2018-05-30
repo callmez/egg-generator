@@ -28,14 +28,14 @@ class <%= identity | capitalize %>Controller extends Controller {
    * update <%= identity %> by id
    */
   async update() {
-    this.ctx.body = await this.ctx.service.<%= identity %>.update(this.ctx.params.id);
+    this.ctx.body = await this.ctx.service.<%= identity %>.update();
   }
 
   /**
    * destroy <%= identity %> by id
    */
   async destroy() {
-    this.ctx.body = await this.ctx.service.<%= identity %>.destroy(this.ctx.params.id);
+    this.ctx.body = await this.ctx.service.<%= identity %>.destroy();
   }
 }
 

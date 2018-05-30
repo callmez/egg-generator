@@ -1,6 +1,6 @@
 # egg-generator
 
-![image](https://user-images.githubusercontent.com/1625891/40605509-32e592dc-6295-11e8-809f-21fb8d9cb103.png)
+![image](https://user-images.githubusercontent.com/1625891/40725901-26d15530-6457-11e8-99aa-e19f62dda8bd.png)
 
 基于eggjs框架搭建的代码生成器, 目前支持CRUD生成, 生成内容包括
 - 服务端代码: eggjs restful 代码骨架文件
