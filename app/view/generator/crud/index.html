@@ -116,14 +116,14 @@
       <h5 class="mb-0">
         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
           ${file.file}
-          ${file.alert ? '<small class="text-danger">(代码拷贝)</small>' : ''}
+          ${file.copy ? '<small class="text-danger">(代码拷贝)</small>' : ''}
           ${file.exists ? '<small class="text-secondary">(已存在,不会覆盖)</small>' : ''}
           ${file.created ? '<small class="text-success">(文件创建成功)</small>' : ''}
         </button>
       </h5>
     </div>
 
-    <div id="collapse${i}" class="collapse ${file.alert === 1 ? 'show' : ''}" aria-labelledby="heading${i}" data-parent="#accordion">
+    <div id="collapse${i}" class="collapse ${file.copy === 1 ? 'show' : ''}" aria-labelledby="heading${i}" data-parent="#accordion">
       <pre><code>${html2Escape(file.content)}</code></pre>
     </div>
   </div>

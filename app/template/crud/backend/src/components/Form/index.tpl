@@ -7,41 +7,20 @@ import { connect } from 'dva';
 import {
   Form,
   Input,
-  Select,
-  message,
 } from 'antd';
 
 const FormItem = Form.Item;
-const create = Form.create;
 
+import createForm from '../../decorations/components/createForm';
+import submitHandle from '../../decorations/components/submitHandle';
+
+@connect()
+@createForm()
+@submitHandle('<%= identity %>')
 export default class extends React.PureComponent {
 
-  submit() {
-    this.handleSubmit();
-  }
-
-  handleSubmit(e) {
-    if (this.props.onSubmit) {
-      this.props.onSubmit(e);
-    } else {
-      this.props.form.validateFields({ force: true }, (err, values) => {
-        if (err) return;
-        this.props.dispatch({
-          type: `<%= identity %>/${values.id ? 'update' : 'add'}`,
-          payload: values,
-        }).then(() => {
-          message.success('提交成功!');
-          if (this.props.onSubmitted) {
-            this.props.onSubmitted()
-          }
-        });
-      });
-    }
-  }
-
-
   render() {
-    const { form: { getFieldDecorator }, types } = this.props;
+    const { form: { getFieldDecorator } } = this.props;
 
     const formItemLayout = {
       labelCol: {
@@ -55,7 +34,7 @@ export default class extends React.PureComponent {
       },
     };
 
-    const editorFormItemLayout = {
+    const textareaFormItemLayout = {
       labelCol: {
         xs: { span: 24 },
         sm: { span: 4 },
@@ -69,20 +48,92 @@ export default class extends React.PureComponent {
     };
 
     return (
-      <Form onSubmit={this.handleSubmit.bind(this)}>
-      {% for name, field in model.fields %}
+      <Form onSubmit={this.handleSubmit}>
+
         <FormItem
           {...formItemLayout}
-          label="<%= name %>">
-          {getFieldDecorator('<%= name %>', {
+          label="id">
+          {getFieldDecorator('id', {
             rules: [{
-              // required: true, message: '请输入<%= name %>',
+              // required: true, message: '请输入id',
             }, {
 
             }],
           })(<Input />)}
         </FormItem>
-      {% endfor %}
+
+        <FormItem
+          {...formItemLayout}
+          label="name">
+          {getFieldDecorator('name', {
+            rules: [{
+              // required: true, message: '请输入name',
+            }, {
+
+            }],
+          })(<Input />)}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="logo">
+          {getFieldDecorator('logo', {
+            rules: [{
+              // required: true, message: '请输入logo',
+            }, {
+
+            }],
+          })(<Input />)}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="type">
+          {getFieldDecorator('type', {
+            rules: [{
+              // required: true, message: '请输入type',
+            }, {
+
+            }],
+          })(<Input />)}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="summary">
+          {getFieldDecorator('summary', {
+            rules: [{
+              // required: true, message: '请输入summary',
+            }, {
+
+            }],
+          })(<Input />)}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="created_at">
+          {getFieldDecorator('created_at', {
+            rules: [{
+              // required: true, message: '请输入created_at',
+            }, {
+
+            }],
+          })(<Input />)}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="updated_at">
+          {getFieldDecorator('updated_at', {
+            rules: [{
+              // required: true, message: '请输入updated_at',
+            }, {
+
+            }],
+          })(<Input />)}
+        </FormItem>
+
       </Form>
     );
   }

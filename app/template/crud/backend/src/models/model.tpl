@@ -3,13 +3,13 @@
  * @param filename <%= identity %>
  */
 import { query, add, update, remove } from '../services/<%= identity %>';
-import {removeRule} from "../../../../../../../../../backend/src/services/api";
+import defaultPageData from '../utils/defaultPageData';
 
 export default {
   namespace: '<%= identity %>',
 
   state: {
-    <%= identity | pluralize %>: [],
+    <%= identity | pluralize %>: defaultPageData,
   },
 
   effects: {

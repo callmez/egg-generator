@@ -1,6 +1,6 @@
 /**
  * template config
- * @param alert 1
+ * @param copy 1
  */
 'use strict';
 

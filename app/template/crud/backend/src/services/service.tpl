@@ -6,25 +6,27 @@ import { stringify } from 'qs';
 import request from '../utils/request';
 
 export async function query(params) {
-  return request('/api/v1/<%= identity | pluralize %>?${stringify(params)}');
+  return request(`/api/v1/<%= identity | pluralize %>?${stringify(params)}`);
 }
 
 export async function add(params) {
   return request('/api/v1/<%= identity | pluralize %>', {
     method: 'POST',
-    body: params
+    body: params,
   });
 }
 
-export async function update(data) {
-  return request('/api/v1/<%= identity | pluralize %>', {
+export async function update(params) {
+  return request(`/api/v1/<%= identity | pluralize %>/${params.id}`, {
     method: 'PUT',
-    body: params
+    body: params,
   });
 }
 
-export async function remove(params) {
-  return request('/api/v1/<%= identity | pluralize %>?${stringify(params)}', {
-    method: 'DELETE'
+export async function remove(id) {
+  return request(`/api/v1/<%= identity | pluralize %>/${id}`, {
+    method: 'DELETE',
   });
 }
+
+
