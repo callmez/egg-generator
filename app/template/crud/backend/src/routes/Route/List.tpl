@@ -12,7 +12,6 @@ import {
   Dropdown,
   Menu,
   Modal,
-  message,
 } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
@@ -55,11 +54,6 @@ export default class List extends React.PureComponent {
     this.handleFormVisible(true);
   }
 
-  handleFormSubmitted = () => {
-    message('提交成功');
-    this.handleFormVisible(false);
-  }
-
   renderForm() {
     const { form, formVisible } = this.state;
 
@@ -73,7 +67,7 @@ export default class List extends React.PureComponent {
       >
         <<%= identity | capitalize %>Form
           fields={form}
-          onSubmitted={this.handleFormSubmitted}
+          onSubmitted={() => this.handleFormVisible(false)}
           wrappedComponentRef={el => { this.formRef = el }}
         />
       </Modal>

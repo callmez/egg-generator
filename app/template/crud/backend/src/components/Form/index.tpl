@@ -16,7 +16,7 @@ const FormItem = Form.Item;
 
 @connect()
 @createForm()
-@submitHandle('<%= identity %>')
+@submitHandle({ namespace: '<%= identity %>' })
 export default class extends React.PureComponent {
 
   render() {
@@ -49,91 +49,19 @@ export default class extends React.PureComponent {
 
     return (
       <Form onSubmit={this.handleSubmit}>
-
+      {% for name, field in model.fields %}
         <FormItem
           {...formItemLayout}
-          label="id">
-          {getFieldDecorator('id', {
-            rules: [{
-              // required: true, message: '请输入id',
-            }, {
-
-            }],
-          })(<Input />)}
+          label="<%= name %>">
+          {getFieldDecorator('<%= name %>', {
+            rules: [
+              // {
+              //   required: true, message: '请输入<%= name %>',
+              // },
+            ],
+          })(<Input placeholder="请输入<%= name %>" />)}
         </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label="name">
-          {getFieldDecorator('name', {
-            rules: [{
-              // required: true, message: '请输入name',
-            }, {
-
-            }],
-          })(<Input />)}
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label="logo">
-          {getFieldDecorator('logo', {
-            rules: [{
-              // required: true, message: '请输入logo',
-            }, {
-
-            }],
-          })(<Input />)}
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label="type">
-          {getFieldDecorator('type', {
-            rules: [{
-              // required: true, message: '请输入type',
-            }, {
-
-            }],
-          })(<Input />)}
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label="summary">
-          {getFieldDecorator('summary', {
-            rules: [{
-              // required: true, message: '请输入summary',
-            }, {
-
-            }],
-          })(<Input />)}
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label="created_at">
-          {getFieldDecorator('created_at', {
-            rules: [{
-              // required: true, message: '请输入created_at',
-            }, {
-
-            }],
-          })(<Input />)}
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label="updated_at">
-          {getFieldDecorator('updated_at', {
-            rules: [{
-              // required: true, message: '请输入updated_at',
-            }, {
-
-            }],
-          })(<Input />)}
-        </FormItem>
-
+      {% endfor %}
       </Form>
     );
   }

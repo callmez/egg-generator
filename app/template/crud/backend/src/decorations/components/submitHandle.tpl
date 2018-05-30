@@ -25,9 +25,11 @@ export default function({ namespace, message = '提交成功' }) {
             this.props.dispatch({
               type,
               payload: values,
-            }).then(this.props.onSubmitted || (() => {
-              Message.success(message);
-            }));
+            })
+              .then(this.props.onSubmitted)
+              .then(() => {
+                if (message) Message.success(message);
+              });
           });
         }
       };

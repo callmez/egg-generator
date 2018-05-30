@@ -7,7 +7,7 @@
 @import '../../utils/utils.less';
 
 .list {
-.listOperator {
+  .listOperator {
     margin-bottom: 16px;
     button {
       margin-right: 8px;

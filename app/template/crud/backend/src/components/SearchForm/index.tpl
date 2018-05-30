@@ -25,7 +25,7 @@ const { Option } = Select;
 
 @connect()
 @createForm()
-@submitHandle('<%= identity %>/query')
+@submitHandle({ namespace: '<%= identity %>/query', message: false })
 export default class extends React.PureComponent {
 
   state = {
@@ -56,21 +56,20 @@ export default class extends React.PureComponent {
     return (
       <Form onSubmit={this.handleSubmit} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+        {% for name, field in model.fields %}{% if loop.index <= 2 %}
           <Col md={8} sm={24}>
-            <FormItem label="规则编号">
-              {getFieldDecorator('no')(<Input placeholder="请输入" />)}
+            <FormItem
+              label="<%= name %>">
+              {getFieldDecorator('<%= name %>', {
+                rules: [
+                  // {
+                  //   required: true, message: '请输入<%= name %>',
+                  // },
+                ],
+              })(<Input placeholder="请输入<%= name %>" />)}
             </FormItem>
           </Col>
-          <Col md={8} sm={24}>
-            <FormItem label="使用状态">
-              {getFieldDecorator('status')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
-                </Select>
-              )}
-            </FormItem>
-          </Col>
+        {% endif %}{% endfor %}
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
               <Button type="primary" htmlType="submit">
@@ -95,55 +94,23 @@ export default class extends React.PureComponent {
     return (
       <Form onSubmit={this.handleSubmit} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24}>
-            <FormItem label="规则编号">
-              {getFieldDecorator('no')(<Input placeholder="请输入" />)}
-            </FormItem>
-          </Col>
-          <Col md={8} sm={24}>
-            <FormItem label="使用状态">
-              {getFieldDecorator('status')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
-                </Select>
-              )}
-            </FormItem>
-          </Col>
-          <Col md={8} sm={24}>
-            <FormItem label="调用次数">
-              {getFieldDecorator('number')(<InputNumber style={{ width: '100%' }} />)}
-            </FormItem>
-          </Col>
+          {% for name, field in model.fields %}{% if loop.index % 3 == 0 %}
         </Row>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24}>
-            <FormItem label="更新日期">
-              {getFieldDecorator('date')(
-                <DatePicker style={{ width: '100%' }} placeholder="请输入更新日期" />
-              )}
+          {% endif %}
+          <Col gutter={{ md: 8, lg: 24, xl: 48 }}>
+            <FormItem
+              label="<%= name %>">
+              {getFieldDecorator('<%= name %>', {
+                rules: [
+                  // {
+                  //   required: true, message: '请输入<%= name %>',
+                  // },
+                ],
+              })(<Input placeholder="请输入<%= name %>" />)}
             </FormItem>
           </Col>
-          <Col md={8} sm={24}>
-            <FormItem label="使用状态">
-              {getFieldDecorator('status3')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
-                </Select>
-              )}
-            </FormItem>
-          </Col>
-          <Col md={8} sm={24}>
-            <FormItem label="使用状态">
-              {getFieldDecorator('status4')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
-                </Select>
-              )}
-            </FormItem>
-          </Col>
+          {% endfor %}
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>
