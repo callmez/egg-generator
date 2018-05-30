@@ -3,11 +3,10 @@
  * @param directory backend/src/routes/<%= identity | capitalize %>
  */
 
-import React, { PureComponent, Fragment } from 'react';
+import React from 'react';
 import { connect } from 'dva';
 import {
   Card,
-  Form,
   Icon,
   Button,
   Dropdown,
@@ -26,7 +25,7 @@ import visibleHandle from '../../decorations/components/visibleHandle';
 
 @connect()
 @visibleHandle([ 'form' ])
-export default class List extends PureComponent {
+export default class List extends React.PureComponent {
   state = {
     form: {},
     selectedRows: [],

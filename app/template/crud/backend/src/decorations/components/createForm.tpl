@@ -3,10 +3,11 @@ import { Form as BaseForm } from "antd";
 const { create, createFormField } = BaseForm;
 
 function normalize(value, field, options = {}) {
-  if (options['timeFields'] && indexOf(options['timeFields'], field) >= 0 && value) {
-    value = moment(value);
+  let v = value;
+  if (options.timeFields && options.timeFields.indexOf(field) >= 0 && value) {
+    v = moment(value);
   }
-  return value;
+  return v;
 }
 
 export default function(options) {
@@ -15,7 +16,7 @@ export default function(options) {
       onFieldsChange(props, changedFields) {
         if (props.onFieldsChange) {
           const data = {};
-          for (let key in changedFields) {
+          for (const key in changedFields) {
             data[key] = changedFields[key].value;
           }
           props.onFieldsChange(data);
@@ -23,16 +24,16 @@ export default function(options) {
       },
 
       mapPropsToFields(props) {
-        let fields = {};
+        const fields = {};
         const propsFields = props.fields;
-        for (let field in propsFields) {
-          fields[field] = createFormField(typeof propsFields[field] != 'Object' ? {
-            value: normalize(propsFields[field], field, options)
+        for (const field in propsFields) {
+          fields[field] = createFormField(typeof propsFields[field] !== 'object' ? {
+            value: normalize(propsFields[field], field, options),
           } : propsFields[field]);
         }
         return fields;
       },
-      ...options
+      ...options,
     })(Component);
 
     return Form;

@@ -10,12 +10,9 @@ import {
   Icon,
   Dropdown,
   Menu,
-  Badge,
   Divider,
   Popconfirm,
 } from 'antd';
-
-const createForm = Form.create;
 
 import StandardTable from '../StandardTable';
 
@@ -30,7 +27,6 @@ import StandardTable from '../StandardTable';
   list: <%= identity %>.<%= identity | pluralize %>,
   loading: loading.models.<%= identity %>,
 }))
-@createForm()
 export default class TableList extends React.PureComponent {
   state = {
     selectedRows: [],
@@ -157,7 +153,7 @@ export default class TableList extends React.PureComponent {
               <Fragment>
                 {onFormEdit ? [
                   <a key="edit" onClick={() => onFormEdit(record)}>编辑</a>,
-                  <Divider key="divider" type="vertical" />
+                  <Divider key="divider" type="vertical" />,
                 ] : null}
                 <Dropdown overlay={listMenu}>
                   <a>
@@ -166,13 +162,13 @@ export default class TableList extends React.PureComponent {
                 </Dropdown>
               </Fragment>
             );
-          }
+          },
         },
       ],
     }
 
     return (
-      <StandardTable {...props}/>
+      <StandardTable {...props} />
     );
   }
 }

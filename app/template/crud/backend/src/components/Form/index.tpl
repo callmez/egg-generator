@@ -9,10 +9,10 @@ import {
   Input,
 } from 'antd';
 
-const FormItem = Form.Item;
-
 import createForm from '../../decorations/components/createForm';
 import submitHandle from '../../decorations/components/submitHandle';
+
+const FormItem = Form.Item;
 
 @connect()
 @createForm()

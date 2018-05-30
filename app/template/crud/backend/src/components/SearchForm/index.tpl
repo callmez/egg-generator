@@ -17,10 +17,11 @@ import {
 } from 'antd';
 
 import styles from './index.less';
+import createForm from '../../decorations/components/createForm';
 import submitHandle from '../../decorations/components/submitHandle';
 
 const FormItem = Form.Item;
-const createForm = Form.create;
+const { Option } = Select;
 
 @connect()
 @createForm()

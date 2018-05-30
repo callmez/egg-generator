@@ -1,5 +1,6 @@
 /**
  * template config
+ * @param filename .roadhogrc.mock.js
  * @param copy 1
  */
 import mockjs from 'mockjs';
@@ -21,8 +22,8 @@ const proxy = {
 
   'GET /api/v1/<%= identity | pluralize %>': 'http://localhost:7001', // list <%= identity %>
   'POST /api/v1/<%= identity | pluralize %>': 'http://localhost:7001', // add <%= identity %>
-  'PUT /api/v1/<%= identity | pluralize %>/*': 'http://localhost:7001', // update <%= identity %>
-  'DELETE /api/v1/<%= identity | pluralize %>/*': 'http://localhost:7001', // remove <%= identity %>
+  'PUT /api/v1/<%= identity | pluralize %>/(.*)': 'http://localhost:7001', // update <%= identity %>
+  'DELETE /api/v1/<%= identity | pluralize %>/(.*)': 'http://localhost:7001', // remove <%= identity %>
 
   /******************  拷贝完毕  ******************/
 };

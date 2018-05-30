@@ -3,9 +3,10 @@ import { message as Message } from 'antd/lib/index';
 /**
  * 为form组件添加默认handleSubmi处理函数和submit触发函数
  * 前提需要为Form.create()创建的组件,  可用onSubmit,onSubmitted来hook流程
+ * @param namespace
  * @return {Function}
  */
-export default function({ namespace, message: '提交成功' }) {
+export default function({ namespace, message = '提交成功' }) {
   /* eslint-disable no-param-reassign */
   return function (target){
     if (!target.prototype.submit) {
