@@ -17,7 +17,7 @@ class <%= identity | capitalize %> extends Service {
    */
   async findById(id) {
     const model = await this.ctx.model.<%= identity | capitalize %>.findOne({ where: { id } });
-    if (!model) this.ctx.throw('400', '<%= identity %> not found.');
+    if (!model) this.ctx.throw(400, '<%= identity %> not found.');
     return model;
   }
 
@@ -34,7 +34,7 @@ class <%= identity | capitalize %> extends Service {
     }, data);
 
     return this.ctx.model.<%= identity | capitalize %>.paginate({
-      where: _data,
+      where: _data.data,
       ...page(data),
     });
   }

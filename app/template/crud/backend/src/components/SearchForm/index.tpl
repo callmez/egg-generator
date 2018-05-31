@@ -9,57 +9,49 @@ import {
   Col,
   Form,
   Input,
-  Select,
   Icon,
   Button,
-  InputNumber,
-  DatePicker,
 } from 'antd';
 
 import styles from './index.less';
 import createForm from '../../decorations/components/createForm';
 import submitHandle from '../../decorations/components/submitHandle';
+import queryHandle from '../../decorations/components/queryHandle';
 
 const FormItem = Form.Item;
-const { Option } = Select;
 
 @connect()
 @createForm()
-@submitHandle({ namespace: '<%= identity %>/query', message: false })
+@submitHandle({ message: false, name: 'search' })
+@queryHandle({ namespace: '<%= identity %>' })
 export default class extends React.PureComponent {
 
   state = {
     expand: false,
   };
 
-  handleSearch(payload) {
-    return this.props.dispatch({
-      type: `<%= identity %>/query`,
-      payload,
-    });
-  }
+  onSearch = this.handleQuery
 
   handleFormReset = () => {
     this.props.form.resetFields();
-    this.handleSearch({});
+    return this.handleReset();
   }
 
   toggleFormExpand = () => {
-    this.setState({
-      expand: !this.state.expand,
-    });
+    this.setState({ expand: !this.state.expand });
   }
 
   renderSimpleForm() {
     const { getFieldDecorator } = this.props.form;
 
     return (
-      <Form onSubmit={this.handleSubmit} layout="inline">
+      <Form onSubmit={this.handleSearch.bind(this)} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
         {% for name, field in model.fields %}{% if loop.index <= 2 %}
           <Col md={8} sm={24}>
             <FormItem
-              label="<%= name %>">
+              label="<%= name %>"
+            >
               {getFieldDecorator('<%= name %>', {
                 rules: [
                   // {
@@ -92,15 +84,13 @@ export default class extends React.PureComponent {
     const { getFieldDecorator } = this.props.form;
 
     return (
-      <Form onSubmit={this.handleSubmit} layout="inline">
+      <Form onSubmit={this.handleSearch.bind(this)} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          {% for name, field in model.fields %}{% if loop.index % 3 == 0 %}
-        </Row>
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          {% endif %}
-          <Col gutter={{ md: 8, lg: 24, xl: 48 }}>
+          {% for name, field in model.fields %}
+          <Col md={8} sm={24}>
             <FormItem
-              label="<%= name %>">
+              label="<%= name %>"
+            >
               {getFieldDecorator('<%= name %>', {
                 rules: [
                   // {
@@ -109,7 +99,10 @@ export default class extends React.PureComponent {
                 ],
               })(<Input placeholder="请输入<%= name %>" />)}
             </FormItem>
-          </Col>
+          </Col>{% if loop.index % 3 == 0 %}
+        </Row>
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+          {% endif %}
           {% endfor %}
         </Row>
         <div style={{ overflow: 'hidden' }}>

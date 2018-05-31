@@ -48,11 +48,12 @@ export default class extends React.PureComponent {
     };
 
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleSubmit.bind(this)}>
       {% for name, field in model.fields %}
         <FormItem
           {...formItemLayout}
-          label="<%= name %>">
+          label="<%= name %>"
+        >
           {getFieldDecorator('<%= name %>', {
             rules: [
               // {

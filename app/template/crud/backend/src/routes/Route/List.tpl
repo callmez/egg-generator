@@ -27,6 +27,7 @@ import visibleHandle from '../../decorations/components/visibleHandle';
 export default class List extends React.PureComponent {
   state = {
     form: {},
+    query: {},
     selectedRows: [],
   };
 
@@ -35,19 +36,22 @@ export default class List extends React.PureComponent {
     /* eslint-disable no-useless-return */
     if (!selectedRows) return;
 
-    // switch (e.key) {
-    //   case 'xxx':
-    //     break;
-    //   default:
-    //     break;
-    // }
+    switch (e.key) {
+      case 'remove':
+        // selected rows remove
+        break;
+      default:
+        break;
+    }
   };
 
-  handleSelectRows = rows => {
-    this.setState({
-      selectedRows: rows,
-    });
+  handleSelectRows = selectedRows => {
+    this.setState({ selectedRows });
   };
+
+  handleQuery = query => {
+    this.setState({ query });
+  }
 
   handleFormEdit = (form = {}) => {
     this.setState({ form });
@@ -59,15 +63,14 @@ export default class List extends React.PureComponent {
 
     return (
       <Modal
-        title="组织管理"
+        title="<%= name %>管理"
         width={800}
         visible={formVisible}
         onCancel={() => this.handleFormVisible()}
-        onOk={() => this.formRef.submit()}
+        onOk={() => { this.formRef.submit().then(() => this.handleFormVisible(false)) }}
       >
         <<%= identity | capitalize %>Form
           fields={form}
-          onSubmitted={() => this.handleFormVisible(false)}
           wrappedComponentRef={el => { this.formRef = el }}
         />
       </Modal>
@@ -75,17 +78,27 @@ export default class List extends React.PureComponent {
   }
 
   renderSearchForm() {
+    const { query } = this.state;
+    const props = {
+      query,
+      onQuery: this.handleQuery,
+    };
     return (
-      <<%= identity | capitalize %>SearchForm />
+      <<%= identity | capitalize %>SearchForm {...props} />
     );
   }
 
   renderList() {
+    const { query } = this.state;
+    const props = {
+      query,
+      onQuery: this.handleQuery,
+      onFormEdit: this.handleFormEdit,
+      onSelectedRows: this.handleSelectRows,
+      ref: el => { this.listRef = el },
+    };
     return (
-      <<%= identity | capitalize %>List
-        onFormEdit={this.handleFormEdit}
-        onSelectedRows={this.handleSelectRows}
-      />
+      <<%= identity | capitalize %>List {...props} />
     );
   }
 

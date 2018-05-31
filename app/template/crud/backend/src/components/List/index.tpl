@@ -4,7 +4,6 @@
  */
 import React, { Fragment } from 'react';
 import { connect } from 'dva';
-import moment from 'moment';
 import {
   Form,
   Icon,
@@ -15,6 +14,8 @@ import {
 } from 'antd';
 
 import StandardTable from '../StandardTable';
+import queryHandle from '../../decorations/components/queryHandle';
+import removeHandle from '../../decorations/components/removeHandle';
 
 // const getValue = obj =>
 //   Object.keys(obj)
@@ -27,6 +28,8 @@ import StandardTable from '../StandardTable';
   list: <%= identity %>.<%= identity | pluralize %>,
   loading: loading.models.<%= identity %>,
 }))
+@queryHandle({ namespace: '<%= identity %>' })
+@removeHandle({ namespace: '<%= identity %>' })
 export default class TableList extends React.PureComponent {
   state = {
     selectedRows: [],
@@ -34,20 +37,6 @@ export default class TableList extends React.PureComponent {
 
   componentDidMount() {
     this.handleQuery();
-  }
-
-  handleQuery = (query) => {
-    this.props.dispatch({
-      type: '<%= identity %>/query',
-      payload: query,
-    });
-  }
-
-  handleRemove = (id) => {
-    this.props.dispatch({
-      type: '<%= identity %>/remove',
-      payload: id,
-    });
   }
 
   handleQueryChange = (pagination, filtersArg, sorter) => {

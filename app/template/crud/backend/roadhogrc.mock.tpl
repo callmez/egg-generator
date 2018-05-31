@@ -14,16 +14,17 @@ import { format, delay } from 'roadhog-api-doc';
 
 // 是否禁用代理
 const noProxy = process.env.NO_PROXY === 'true';
-
+// 服务器地址
+const serverUrl = 'http://localhost:7001';
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 const proxy = {
 
   /******************  拷贝以下内容  ******************/
 
-  'GET /api/v1/<%= identity | pluralize %>': 'http://localhost:7001', // list <%= identity %>
-  'POST /api/v1/<%= identity | pluralize %>': 'http://localhost:7001', // add <%= identity %>
-  'PUT /api/v1/<%= identity | pluralize %>/(.*)': 'http://localhost:7001', // update <%= identity %>
-  'DELETE /api/v1/<%= identity | pluralize %>/(.*)': 'http://localhost:7001', // remove <%= identity %>
+  'GET /api/v1/<%= identity | pluralize %>': serverUrl, // list <%= identity %>
+  'POST /api/v1/<%= identity | pluralize %>': serverUrl, // add <%= identity %>
+  'PUT /api/v1/<%= identity | pluralize %>/*': serverUrl, // update <%= identity %>
+  'DELETE /api/v1/<%= identity | pluralize %>/*': serverUrl, // remove <%= identity %>
 
   /******************  拷贝完毕  ******************/
 };

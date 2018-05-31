@@ -13,6 +13,9 @@ export default {
   },
 
   effects: {
+    /**
+     * pagination query <%= identity %>
+     */
     *query({ payload, callback }, { call, put }) {
       const response = yield call(query, payload);
       yield put({
@@ -21,14 +24,23 @@ export default {
       });
       if (callback) callback(response);
     },
+    /**
+     * create <%= identity %>
+     */
     *add({ payload, callback }, { call }) {
       const response = yield call(add, payload);
       if (callback) callback(response);
     },
+    /**
+     * update <%= identity %> by id
+     */
     *update({ payload, callback }, { call }) {
       const response = yield call(update, payload);
       if (callback) callback(response);
     },
+    /**
+     * destroy <%= identity %> by id
+     */
     *remove({ payload, callback }, { call }) {
       const response = yield call(remove, payload);
       if (callback) callback(response);
