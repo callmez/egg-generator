@@ -23,11 +23,13 @@ class Crud extends Service {
   }
 
   async parseModel(tableName) {
-    const queryInterface = this.app.model.getQueryInterface(); // 只支持单数据库
+    const { app } = this;
+    const model = app.sequelize || app.model;
+    const queryInterface = model.getQueryInterface(); // 只支持单数据库
     const tables = await queryInterface.showAllTables();
     if (tables.indexOf(tableName) === -1) this.ctx.throw('400', `table ${tableName} is not exists`);
 
-    const { database, username, password } = this.app.model.config;
+    const { database, username, password } = model.config;
     const auto = new AutoSequelize(database, username, password, {
       tables: [ tableName ],
       directory: false,
